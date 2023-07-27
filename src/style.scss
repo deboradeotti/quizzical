@@ -83,7 +83,13 @@ body {
   .question {
     border-bottom: 1px solid #DBDEF0;
     color: #293264;
+    margin-top: 16px;
+    width: 325px;
     padding-bottom: 16px;
+
+    @media screen and (min-width: 800px) {
+      width: 550px;
+    }
 
     &__title {
       font-family: Karla, sans-serif;
@@ -92,19 +98,51 @@ body {
 
     &__options {
       display: flex;
-      font-family: Inter, sans-serif;
       font-size: 12px;
-      gap: 10px;
+      justify-content: space-around;
 
       &--option {
-        border: 1px solid #4D5B9E;
-        border-radius: 8px;
-        height: 21px;
-        margin: 0;
-        padding: 4px 8px;
-        text-align: center;
-        width: 66px;
+        label {
+          border: 1px solid #4D5B9E;
+          border-radius: 8px;
+          cursor: pointer;
+          display: block;
+          font-family: Inter, sans-serif;
+          margin: 0;
+          max-width: 120px;
+          padding: 4px 8px;
+          text-align: center;
+
+          &:hover {
+            background-color: #D6DBF5;
+            border-color: #D6DBF5;
+          }
+        }
+
+        input {
+          display: none;
+        }
+
+        input:checked + label {
+          background-color: #D6DBF5;
+          border-color: #D6DBF5;
+        }
       }
     }
+  }
+
+  &__button {
+    background: #4D5B9E;
+    border: none;
+    border-radius: 15px;
+    color: #F5F7FB;
+    cursor: pointer;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    height: 52px;
+    margin-top: 30px;
+    text-align: center;
+    width: 193px;
   }
 }
