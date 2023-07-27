@@ -3,7 +3,7 @@ body {
 }
 
 .blob {
-  position: absolute; 
+  position: fixed; 
   z-index: 0;
 
   &--yellow {
@@ -68,6 +68,43 @@ body {
 
     &:hover {
       background-color: #3C467A;
+    }
+  }
+}
+
+.quiz {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+
+  .question {
+    border-bottom: 1px solid #DBDEF0;
+    color: #293264;
+    padding-bottom: 16px;
+
+    &__title {
+      font-family: Karla, sans-serif;
+      font-size: 16px;
+    }
+
+    &__options {
+      display: flex;
+      font-family: Inter, sans-serif;
+      font-size: 12px;
+      gap: 10px;
+
+      &--option {
+        border: 1px solid #4D5B9E;
+        border-radius: 8px;
+        height: 21px;
+        margin: 0;
+        padding: 4px 8px;
+        text-align: center;
+        width: 66px;
+      }
     }
   }
 }
