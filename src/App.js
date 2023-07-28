@@ -6,19 +6,51 @@ export default function App() {
 
   const [showQuiz, setShowQuiz] = React.useState(false);
   const [allQuestions, setAllQuestions] = React.useState([]);
+  const [checkingAnswers, setCheckingAnswers] = React.useState(false);
 
   React.useEffect(() => {
     fetch("https://opentdb.com/api.php?amount=10&type=multiple")
     .then(res => res.json())
-    .then(questionsData => setAllQuestions(questionsData.results))
+    .then(questionsData => {
+      const questions = questionsData.results;
+      questions.forEach(question => 
+        {
+          question.id = nanoid();
+          question.correctAnswer = question.correct_answer;
+          question.allAnswers = [...question.incorrect_answers, question.correct_answer];
+          shuffleArray(question.allAnswers);
+        })
+      setAllQuestions(questions);
+    }
+    );
   }, [])
 
-  const questionElements = allQuestions.map(question => (
-    <Question key={nanoid()} title={question.question} correctAnswer={question.correct_answer} incorrectAnswers={question.incorrect_answers} />
-  ))
+  // Fisher-Yates shuffle algorithm to randomly shuffle the elements
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  const questionElements = allQuestions.map(question => {
+    return (
+    <Question 
+      key={question.id} 
+      title={question.question} 
+      correctAnswer={question.correctAnswer} 
+      allAnswers={question.allAnswers}
+      checkingAnswers={checkingAnswers}
+      />
+  )})
 
   function startQuiz() {
     setShowQuiz(true);
+  }
+
+  function checkAnswers(event) {
+    event.preventDefault();
+    setCheckingAnswers(prevCheckingAnswers => !prevCheckingAnswers);
   }
 
   return(
@@ -29,11 +61,11 @@ export default function App() {
       {!showQuiz && <div className="menu">
         <h1 className="menu__title">Quizzical</h1>
         <p className="menu__description">How much can you score in this trivia quiz?</p>
-        <button className="menu__button" onClick={startQuiz}>Start quiz</button>
+        <button className="button" onClick={startQuiz}>Start quiz</button>
       </div>}
       {showQuiz && <div className="quiz">
         {questionElements}
-        <button className="quiz__button">Check answers</button>
+        <button className="button" onClick={checkAnswers}>{checkingAnswers ? "Play again" : "Check answers"}</button>
       </div>}
       <svg className="blob blob--green" xmlns="http://www.w3.org/2000/svg" width="297" height="235" viewBox="0 0 148 118" fill="none">
         <path fillRule="evenodd" clipRule="evenodd" d="M-5.55191 4.90596C35.9614 1.77498 82.2425 -9.72149 112.306 19.1094C145.581 51.0203 155.282 102.703 142.701 147.081C130.767 189.18 93.7448 220.092 51.8208 232.476C16.5281 242.902 -15.4332 218.605 -49.1007 203.738C-85.3375 187.737 -133.641 182.993 -145.741 145.239C-158.358 105.868 -132.269 64.5881 -103.064 35.3528C-77.7328 9.99541 -41.2727 7.60006 -5.55191 4.90596Z" fill="#DEEBF8"/>

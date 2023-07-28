@@ -47,29 +47,6 @@ body {
       font-size: 18px;
     }
   }
-
-  &__button {
-    background: #4D5B9E;
-    border: none;
-    border-radius: 15px;
-    color: #F5F7FB;
-    cursor: pointer;
-    font-family: Inter, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    height: 52px;
-    margin-top: 30px;
-    text-align: center;
-    width: 193px;
-
-    @media screen and (min-width: 800px) {
-      font-size: 18px;
-    }
-
-    &:hover {
-      background-color: #3C467A;
-    }
-  }
 }
 
 .quiz {
@@ -84,22 +61,33 @@ body {
     border-bottom: 1px solid #DBDEF0;
     color: #293264;
     margin-top: 16px;
-    width: 325px;
-    padding-bottom: 16px;
+    width: 350px;
+    padding-bottom: 32px;
 
     @media screen and (min-width: 800px) {
-      width: 550px;
+      width: 600px;
     }
 
     &__title {
       font-family: Karla, sans-serif;
       font-size: 16px;
+
+      @media screen and (min-width: 800px) {
+        font-size: 20px;
+        width: 550px;
+      }
     }
 
     &__options {
+      align-items: center;
       display: flex;
       font-size: 12px;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding-top: 10px;
+
+      @media screen and (min-width: 800px) {
+        font-size: 14px;
+      }
 
       &--option {
         label {
@@ -110,7 +98,8 @@ body {
           font-family: Inter, sans-serif;
           margin: 0;
           max-width: 120px;
-          padding: 4px 8px;
+          min-width: 40px;
+          padding: 8px;
           text-align: center;
 
           &:hover {
@@ -127,22 +116,45 @@ body {
           background-color: #D6DBF5;
           border-color: #D6DBF5;
         }
+
+        input.correct + label {
+          background-color: #94D7A2;
+          border-color: #94D7A2;
+        }
+
+        input.incorrect:checked + label {
+          background-color: #F8BCBC;
+          border-color: #F8BCBC;
+          color: #4D5B9E;
+        }
+
+        input.incorrect + label {
+          opacity: 0.5;
+        }
       }
     }
   }
+}
 
-  &__button {
-    background: #4D5B9E;
-    border: none;
-    border-radius: 15px;
-    color: #F5F7FB;
-    cursor: pointer;
-    font-family: Inter, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    height: 52px;
-    margin-top: 30px;
-    text-align: center;
-    width: 193px;
+.button {
+  background: #4D5B9E;
+  border: none;
+  border-radius: 15px;
+  color: #F5F7FB;
+  cursor: pointer;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  height: 52px;
+  margin-top: 30px;
+  text-align: center;
+  width: 193px;
+
+  @media screen and (min-width: 800px) {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: #3C467A;
   }
 }
